@@ -96,6 +96,7 @@ button:-moz-focusring,
   background-color: transparent;
   text-decoration: none;
 }
+
 .github-corner svg {
   position: absolute;
   right: 0;
@@ -104,9 +105,10 @@ button:-moz-focusring,
   fill: rgba(92, 42, 157, 0.8);
   transition: fill 0.25s ease-in-out;
   z-index: 1;
+  width: 5%; /* Adjust this value as needed */
 }
 
-.github-corner svg:hover {
+  .github-corner svg:hover {
   fill: #5c2a9d;
 }
 

@@ -3,14 +3,24 @@ function Survey(survey) {
     throw new Error("No Survey Form found!");
   }
 
+  //git logo resizing for varying screen resolutions
+
+  function updateSvgSize() {
+    const svg = document.querySelector('.github-corner svg');
+    const viewportWidth = window.innerWidth;
+    const svgWidth = Math.min(viewportWidth * 0.05, 86); // Adjust the percentage and maximum width as needed
+    svg.style.width = svgWidth + 'px';
+  }
+
   // select the elements
+  
   const progressbar = survey.querySelector(".progressbar");
   const surveyPanels = survey.querySelectorAll(".survey__panel");
-  const question1Radios = survey.querySelectorAll("[name='question_1']");
-  const question2Radios = survey.querySelectorAll("[name='question_2']");
-  const question3Radios = survey.querySelectorAll("[name='question_3']");
-  const question4Radios = survey.querySelectorAll("[name='question_4']");
-  const question5Radios = survey.querySelectorAll("[name='question_5']");
+  const question1Radios = survey.querySelectorAll("[name='outdoor_1']");
+  const question2Radios = survey.querySelectorAll("[name='indoor_2']");
+  const question3Radios = survey.querySelectorAll("[name='creative_3']");
+  const question4Radios = survey.querySelectorAll("[name='social_4']");
+  const question5Radios = survey.querySelectorAll("[name='educational_5']");
   const question5Email = survey.querySelector("[name='email']");
   const question5Country = survey.querySelector("[name='country']");
   const question5Age = document.querySelector("[name='age']");
@@ -290,21 +300,40 @@ function Survey(survey) {
   } */
 
 
+
+const scriptURL = 'https://script.google.com/macros/s/AKfycbxW5iLaUXIv_D6kdUSf0F2bA8vGxiYPOKPiD_qJi8NldiLL9R7uUTJeZ4BBvIilJWxp/exec'
+const form = document.forms['SpringEaster-Form-Data']
+
   function handleFormSubmit(e) {
     checkRequirements();
     if (!dontSubmit) {
       e.preventDefault();
     } else {
       mainElement.classList.add("submission");
-      mainElement.setAttribute("role", "alert");
-      mainElement.innerHTML = `<svg width="126" height="118" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 126 118" aria-hidden="true" style="transform: translateX(50%)"><path d="M52.5 118c28.995 0 52.5-23.729 52.5-53S81.495 12 52.5 12 0 35.729 0 65s23.505 53 52.5 53z" fill="#B9CCED"/><path d="M45.726 87L23 56.877l8.186-6.105 15.647 20.74L118.766 0 126 7.192 45.726 87z" fill="#A7E9AF"/></svg>
-      <h2 class="submission">Thanks for your time</h2>
-      <p>The form was successfully submitted`;
-      return false;
+    mainElement.setAttribute("role", "alert");
+    mainElement.innerHTML = `
+        <form action="https://script.google.com/macros/s/AKfycbxW5iLaUXIv_D6kdUSf0F2bA8vGxiYPOKPiD_qJi8NldiLL9R7uUTJeZ4BBvIilJWxp/exec" method="POST" id="survey-form" class="survey" name="SpringEaster-Form-Data">
+            <svg width="126" height="118" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 126 118" aria-hidden="true" style="transform: translateX(50%)">
+                <path d="M52.5 118c28.995 0 52.5-23.729 52.5-53S81.495 12 52.5 12 0 35.729 0 65s23.505 53 52.5 53z" fill="#B9CCED"/>
+                <path d="M45.726 87L23 56.877l8.186-6.105 15.647 20.74L118.766 0 126 7.192 45.726 87z" fill="#A7E9AF"/>
+            </svg>
+            <h2 class="submission">Thanks for your time</h2>
+            <p>The form was successfully submitted</p>
+        </form>`; 
     }
   }
 
+
+ function form.addEventListener('submit', e => {
+      e.preventDefault()
+      fetch(scriptURL, { method: 'POST', body: new FormData(SpringEaster-Form-Data)})
+      .then(() => handleFormSubmit)
+      .then(() => { window.location.reload(); })
+      .catch(error => console.error('Error!', error.message))
+    })
+
   storeInitialData();
+  updateSvgSize();
 
   // Add event listeners
   function addListenersTo({
@@ -338,3 +367,4 @@ function Survey(survey) {
 }
 
 const survey = Survey(document.querySelector(".survey"));
+window.addEventListener('resize', updateSvgSize); 
